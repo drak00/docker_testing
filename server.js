@@ -5,7 +5,7 @@ var MongoClient = require('mongodb').MongoClient;
 var bodyParser = require('body-parser');
 var app =express();
 
-app.use(bodyParser.urlendocded({
+app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
@@ -36,13 +36,13 @@ app.post('/update-profile', function(req, res){
 
   console.log('connecting to the db...');
   
-  MongoClient.conect('mongo://admin:password@localhost:27017', function(err, client){
+  MongoClient.connect('mongodb://admin:password@localhost:27017', function(err, client){
     if (err) throw err;
 
     var db = client.db('user-account');
     userObj['userid'] = 1
-    var query = {userid: 1};
-    var newValues = {set:userObj};
+    var query = { userid: 1};
+    var newValues = { $set: userObj };
 
     console.log('successfully connected to the user-account db');
 
